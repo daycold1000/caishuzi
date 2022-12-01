@@ -70,7 +70,3 @@ DB_PATH2 = os.path.expanduser('~/.q2bot/shop.db')
 
 ```
 
-
-"# caishuzi" 
-"# caishuzi" 
-"# caishuzi" 
