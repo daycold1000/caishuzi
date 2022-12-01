@@ -60,11 +60,9 @@ class chouka:
 ```
 
 
-还有25、26行代码
+还有26行代码
 
 ```
-
-DB2_PATH = os.path.expanduser('~/.q2bot/chouka.db')
 
 DB_PATH2 = os.path.expanduser('~/.q2bot/shop.db')
 
