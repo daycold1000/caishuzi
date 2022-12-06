@@ -25,6 +25,10 @@ DB_PATH = os.path.expanduser('~/.q2bot/caishuzi.db')
 DB2_PATH = os.path.expanduser('~/.q2bot/chouka.db')
 DB_PATH2 = os.path.expanduser('~/.q2bot/shop.db')
 
+CISHU = 6 #在这里修改猜测次数（推荐值：6）（最大建议值：8）
+SHITOU = 100000 #在这里修改猜对后获得的货币数量（推荐值：10万）（不建议改的过大，会导致经济体系崩溃）
+SUIPIAN = 10 #在这里修改猜对后获得的高级货币数量（推荐值：5）（最大建议值：12）（不建议改的过大，会导致经济体系崩溃）
+
 # 创建DB数据
 class csz:
     def __init__(self):
@@ -371,10 +375,10 @@ async def chudao1(bot, ev: CQEvent):
         sz4 = random.randint(0,9)
     q2csz._set_shuzi(gid,4,sz4)
 
-    q2csz._set_shuzi(gid,5,6) #6次机会
+    q2csz._set_shuzi(gid,5,CISHU) #猜测次数
     q2csz._set_shuzi(gid,6,1) #本群进入猜数字状态，发数字进入有效状态
-    q2csz._set_shuzi(gid,7,1) #1次提示
-    q2csz._set_shuzi(gid,8,1) #1次捣乱机会
+    q2csz._set_shuzi(gid,7,1) #1次提示（注意：非常不建议修改，真需要修改请和下面的代码一并修改！！！
+    q2csz._set_shuzi(gid,8,1) #1次捣乱机会（注意：非常不建议修改，真需要修改请和下面的代码一并修改！！！
 
     await bot.send(ev,'我生成了4个不同的数字，快来猜猜吧！(直接发数字）')
 
@@ -420,10 +424,11 @@ async def baodao1(bot, ev: CQEvent):
         q2csz._add_cishu(gid,uid,1)
         cishu = q2csz._get_cishu(gid,uid)
         q2csz._set_shuzi(gid,6,0)
-        shitou = random.randint(0,100000)
-        suipian = random.randint(0,10)
-        ck._add_shitou(0,uid,shitou)
-        await bot.finish(ev,f'恭喜你，猜对了！\n数字是：{num1}{num2}{num3}{num4}\n喵喵石头x{shitou} 精元碎片x{suipian}\n一共猜对了{cishu}次。')
+        st = random.randint(0,SHITOU)
+        sp = random.randint(0,SUIPIAN)
+        ck._add_shitou(0,uid,st)
+        ck._add_shitou(100,uid,sp)
+        await bot.finish(ev,f'恭喜你，猜对了！\n数字是：{num1}{num2}{num3}{num4}\n喵喵石头x{st} 精元碎片x{sp}\n一共猜对了{cishu}次。')
 
     q2csz._reduce_shuzi(gid,5,1)
     jihui = q2csz._get_shuzi(gid,5)
@@ -451,9 +456,9 @@ async def daoju1(bot, ev: CQEvent):
     shop = shangdian()
     if q2csz._get_shuzi(gid,6) !=1:
         await bot.finish(ev,'这个群不在猜数字')
-    if q2csz._get_shuzi(gid,7) ==1:
+    if q2csz._get_shuzi(gid,7) ==1: #注意！非常不建议修改，真需要修改请和上面的代码一并修改！！！（修改后面的 ==1中数字和上面一样）
         if shop._get_daoju1(0,uid) !=0:
-            if q2csz._get_shuzi(gid,5) <=2:
+            if q2csz._get_shuzi(gid,5) <=2: #代码含义：在猜测次数还有2次以下时即可使用道具，修改后面的 <=2中数字改变条件
                 num = random.randint(1,4)
                 num1 = q2csz._get_shuzi(gid,num)
                 q2csz._set_shuzi(gid,7,0)
@@ -474,9 +479,9 @@ async def daoju2(bot, ev: CQEvent):
     shop = shangdian()
     if q2csz._get_shuzi(gid,6) !=1:
         await bot.finish(ev,'这个群不在猜数字')
-    if q2csz._get_shuzi(gid,8) ==1:
+    if q2csz._get_shuzi(gid,8) ==1:#注意！非常不建议修改，真需要修改请和上面的代码一并修改！！！（修改后面的 ==1中数字和上面一样）
         if shop._get_daoju2(0,uid) !=0:
-            if q2csz._get_shuzi(gid,5) <=5:
+            if q2csz._get_shuzi(gid,5) <=5: #代码含义：在猜测次数还有5次以下时即可使用道具，修改后面的 <=5中数字改变条件
                 xunhuan = 1
                 while xunhuan !=0:
                     num = random.randint(1,4)
