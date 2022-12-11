@@ -28,7 +28,7 @@ git clone https://github.com/daycold1000/caishuzi
 
 暗中调换：在生成的数字中随机替换一个数字并和其他三位数字中的随机一位调换位置
 
-如需要请移步至此处获取 https://github.com/daycold1000/miaoshop
+[喵喵商店插件](https://github.com/daycold1000/miaoshop)
 
 如不需要可删除446行后面的所有内容：
 
